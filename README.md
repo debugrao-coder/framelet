@@ -82,8 +82,8 @@ cargo clippy --manifest-path core/Cargo.toml -- -D warnings
 dotnet run --project windows/tests/GifMuxTests.csproj -c Release
 cd prototype
 npm ci
-npm run test:sites
 npm run build
+npm run test:sites
 npm run dev -- --host 127.0.0.1 --port 4317
 ```
 
