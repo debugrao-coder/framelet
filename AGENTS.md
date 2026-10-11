@@ -1,0 +1,7 @@
+# Framelet / 瞬帧
+Personal local-first macOS + Windows screenshot app. No in-app cloud uploading, accounts, telemetry or private screen fixtures. Public source releases must exclude local logs, private paths, credentials and toolchains; label unverified platform support explicitly.
+Latest style authority (2026-10-11): Apple latest native design / Liquid Glass, system appearance and semantic colors. Existing design/capture-approved.png, editor-reference.png and ocr-reference.png remain layout references, not fixed colors or forced dark OCR. See DESIGN.md.
+Native applications are the product. prototype/ is a separately labeled interactive design preview, never evidence of native capture.
+Work split: parent owns macos/, scripts/, root documents; core agent owns core/; Windows agent owns windows/; prototype agent owns prototype/ and its QA. No overwriting other's files or commits.
+Core ABI: framelet_overlap(prev, next, width, height, stride) -> int32_t. RGBA8 row-major top-to-bottom identical size; return appended vertical pixel count (positive downward scroll), 0 unchanged, -1 unreliable, -2 invalid input. Header core/include/framelet_core.h. No global mutable state. Callers validate buffer lengths and cap allocations. Core staticlib/dylib name framelet_core.
+Completion means real native capture, scrolling, GIF, OCR, measured performance and visual QA on both platforms. Synthetic tests and a Mac-only build cannot satisfy Windows runtime acceptance. Explicitly retain pending evidence.

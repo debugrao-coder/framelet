@@ -1,0 +1,43 @@
+name: Source checks (not native runtime acceptance)
+on:
+  push:
+    branches: [main, 'codex/**']
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  core:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - run: cargo test --manifest-path core/Cargo.toml --locked
+      - run: cargo clippy --manifest-path core/Cargo.toml --locked -- -D warnings
+  windows-source:
+    runs-on: ubuntu-latest
+    env:
+      DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4
+        with:
+          dotnet-version: '8.0.x'
+      - run: dotnet run --project windows/tests/GifMuxTests.csproj -c Release
+      - run: dotnet build windows/Framelet.csproj -c Release -p:EnableWindowsTargeting=true
+      - run: python3 windows/tests/shortcut_source_check.py
+  prototype:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - run: npm ci
+        working-directory: prototype
+      - run: npm run test:sites && npm run build
+        working-directory: prototype

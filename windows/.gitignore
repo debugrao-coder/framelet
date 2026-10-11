@@ -1,0 +1,7 @@
+.tools/
+bin/
+obj/
+package/
+*.pfx
+*.cer
+*.partial

@@ -1,0 +1,37 @@
+<Application x:Class="Framelet.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" ShutdownMode="OnExplicitShutdown">
+<Application.Resources>
+<Style TargetType="Window">
+ <Setter Property="FontFamily" Value="{DynamicResource {x:Static SystemFonts.MessageFontFamilyKey}}"/><Setter Property="FontSize" Value="14"/>
+ <Setter Property="Background" Value="{DynamicResource WindowSurface}"/><Setter Property="Foreground" Value="{DynamicResource Label}"/>
+ <Setter Property="UseLayoutRounding" Value="True"/>
+</Style>
+<Style x:Key="ControlGroup" TargetType="Border">
+ <Setter Property="Background" Value="{DynamicResource GroupSurface}"/><Setter Property="BorderBrush" Value="{DynamicResource Separator}"/><Setter Property="BorderThickness" Value="1"/>
+ <Setter Property="CornerRadius" Value="12"/><Setter Property="Padding" Value="4"/>
+</Style>
+<Style TargetType="Button">
+ <Setter Property="Padding" Value="14,9"/><Setter Property="MinHeight" Value="38"/><Setter Property="Margin" Value="2"/>
+ <Setter Property="Foreground" Value="{DynamicResource ControlLabel}"/><Setter Property="Background" Value="{DynamicResource ControlSurface}"/>
+ <Setter Property="BorderBrush" Value="{DynamicResource Separator}"/><Setter Property="BorderThickness" Value="1"/>
+ <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="Button">
+  <Border x:Name="Chrome" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="8" Padding="{TemplateBinding Padding}">
+   <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True"/>
+  </Border>
+  <ControlTemplate.Triggers>
+   <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Chrome" Property="Background" Value="{DynamicResource HoverSurface}"/><Setter Property="Foreground" Value="{DynamicResource HoverLabel}"/></Trigger>
+   <Trigger Property="IsPressed" Value="True"><Setter TargetName="Chrome" Property="Background" Value="{DynamicResource PrimarySurface}"/><Setter Property="Foreground" Value="{DynamicResource OnPrimary}"/></Trigger>
+   <Trigger Property="IsKeyboardFocused" Value="True"><Setter TargetName="Chrome" Property="BorderBrush" Value="{DynamicResource Focus}"/><Setter TargetName="Chrome" Property="BorderThickness" Value="2"/></Trigger>
+   <Trigger Property="IsEnabled" Value="False"><Setter Property="Foreground" Value="{DynamicResource DisabledLabel}"/><Setter TargetName="Chrome" Property="Background" Value="{DynamicResource ControlSurface}"/></Trigger>
+  </ControlTemplate.Triggers>
+ </ControlTemplate></Setter.Value></Setter>
+</Style>
+<Style x:Key="PrimaryButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}"><Setter Property="Background" Value="{DynamicResource PrimarySurface}"/><Setter Property="Foreground" Value="{DynamicResource OnPrimary}"/><Setter Property="FontWeight" Value="SemiBold"/></Style>
+<Style TargetType="TextBox">
+ <Setter Property="Background" Value="{DynamicResource ContentSurface}"/><Setter Property="Foreground" Value="{DynamicResource Label}"/><Setter Property="CaretBrush" Value="{DynamicResource Label}"/>
+ <Setter Property="BorderBrush" Value="{DynamicResource Separator}"/><Setter Property="BorderThickness" Value="1"/><Setter Property="Padding" Value="8"/>
+ <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/><Setter Property="SelectionTextBrush" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
+</Style>
+<!-- Keep the native ComboBox popup/keyboard owner and its matching system colors. -->
+<Style TargetType="ComboBox"><Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/><Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/></Style>
+<Style TargetType="ComboBoxItem"><Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/><Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/><Style.Triggers><Trigger Property="IsHighlighted" Value="True"><Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/><Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/></Trigger></Style.Triggers></Style>
+</Application.Resources></Application>
